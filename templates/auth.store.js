@@ -1,5 +1,6 @@
 import Cookie from 'cookie'
 import Cookies from 'js-cookie'
+import 'whatwg-fetch'
 
 export default {
   namespaced: true,
@@ -81,7 +82,7 @@ export default {
       await dispatch('updateToken', null)
     },
 
-    async fetch ({ state, commit, dispatch }, { endpoint = 'auth/user' } = {}) {
+    async fetch ({ state, commit, dispatch }, { endpoint = 'auth/user', user } = {}) {
       // Fetch and update latest token
       await dispatch('fetchToken')
 
@@ -90,26 +91,41 @@ export default {
         return
       }
 
-      // Try to get user profile
-      try {
-        const userData = await this.$axios.$get(endpoint)
-        commit('SET_USER', userData.user)
-      } catch (e) {
-        return dispatch('invalidate')
+      if (user) {
+        commit('SET_USER', user)
+      } else {
+        // Try to get user profile
+        try {
+          const userData = await this.$axios.$get(endpoint)
+          commit('SET_USER', userData.user)
+        } catch (e) {
+          return dispatch('invalidate')
+        }
       }
     },
 
     // Login
     async login ({ commit, dispatch }, { fields, endpoint = 'auth/login', session = false } = {}) {
       // Send credentials to API
-      let tokenData = await this.$axios.$post(endpoint, fields)
-      let token = tokenData.token || tokenData.id_token
+      
+      let user = await this.$axios.$post(endpoint, fields)
+
+      // let token = tokenData.token || tokenData.id_token
+      fetch('http://138.197.137.65:8000/api/v0/login', {
+        method: 'post',
+        mode: 'cors',
+        body: JSON.stringify(fields)
+      }).then(response => {
+          headerAuth = response.headers.get('Authorization')
+          console.log('header authorization', headerAuth)
+          console.log('auth cookie', response.headers.get('Set-Cookie'))
+        })
 
       // Update new token
-      await dispatch('updateToken', token)
+      // await dispatch('updateToken', token)
 
       // Fetch authenticated user
-      await dispatch('fetch')
+      await dispatch('fetch', { user })
     },
 
     // Logout
