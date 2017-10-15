@@ -115,7 +115,8 @@ export default {
       console.log('user from endpoint call in login', user)
 
       // let token = tokenData.token || tokenData.id_token
-      fetch('http://138.197.137.65:8000/api/v0/login', {
+      // fetch('http://138.197.137.65:8000/api/v0/login', {
+      fetch('https://api.servdshop.com/api/v0/login', {
         method: 'post',
         mode: 'cors',
         body: JSON.stringify(fields)
