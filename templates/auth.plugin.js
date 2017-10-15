@@ -12,7 +12,7 @@ export default async function (ctx, inject) {
 
   // Fetch initial state
   try {
-    await store.dispatch('auth/fetch')
+    await store.dispatch('auth/fetchToken')
   } catch (e) {
     // Not authorized
     // Check axios module is correctly registered
