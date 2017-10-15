@@ -67,7 +67,7 @@ export default {
       if (!token) {
         const cookieStr = process.browser ? document.cookie : this.$ctx.req.headers.cookie
         const cookies = Cookie.parse(cookieStr || '') || {}
-        token = cookies.token
+        token = cookies.access_token
         console.log('cookies:', cookies, 'token:', token)
       }
 
