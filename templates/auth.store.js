@@ -110,6 +110,7 @@ export default {
     async login ({ commit, dispatch }, { fields, endpoint = 'auth/login', session = false } = {}) {
       // Send credentials to API
       
+      console.log('login auth call')
       let user = await this.$axios.$post(endpoint, fields)
       console.log('user from endpoint call in login', user)
 
