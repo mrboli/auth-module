@@ -91,9 +91,11 @@ export default {
         return
       }
 
+      console.log('fetch passed in user:', user)
       if (user) {
         commit('SET_USER', user)
       } else {
+        console.log('no user')
         // Try to get user profile
         try {
           const userData = await this.$axios.$get(endpoint)
@@ -109,6 +111,7 @@ export default {
       // Send credentials to API
       
       let user = await this.$axios.$post(endpoint, fields)
+      console.log('user from endpoint call in login', user)
 
       // let token = tokenData.token || tokenData.id_token
       fetch('http://138.197.137.65:8000/api/v0/login', {
