@@ -120,8 +120,7 @@ export default {
         mode: 'cors',
         body: JSON.stringify(fields)
       }).then(response => {
-          headerAuth = response.headers.get('Authorization')
-          console.log('header authorization', headerAuth)
+          console.log('header authorization', response.headers.get('Authorization'))
           console.log('auth cookie', response.headers.get('Set-Cookie'))
         })
 
