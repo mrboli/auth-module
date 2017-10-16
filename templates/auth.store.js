@@ -117,8 +117,8 @@ export default {
         mode: 'cors',
         body: JSON.stringify(fields)
       }).then(response => {
-          console.log('header authorization', response.headers.get('Authorization'))
-          console.log('auth cookie', response.headers.get('Set-Cookie'))
+          console.log('header authorization', response.headers.get('authorization'))
+          console.log('auth cookie', response.headers.get('set-cookie'))
         })
 
       // Update new token
