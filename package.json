@@ -1,0 +1,83 @@
+{
+  "_from": "github:mrboli/auth-module",
+  "_id": "@nuxtjs/auth@2.0.8",
+  "_inBundle": false,
+  "_integrity": "sha1-OK9V2EtX7HgmRzN6Xwagc8AXuvQ=",
+  "_location": "/@nuxtjs/auth",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "mrboli/auth-module",
+    "rawSpec": "mrboli/auth-module",
+    "saveSpec": "github:mrboli/auth-module",
+    "fetchSpec": null,
+    "gitCommittish": "master"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "github:mrboli/auth-module#7b305f4eb68c0e5eccc832a4c441d2fb5765f850",
+  "_spec": "mrboli/auth-module",
+  "_where": "/Users/boli/Dev/servd/servd-pos-web",
+  "bugs": {
+    "url": "https://github.com/nuxt-community/auth-module/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Pooya Parsa",
+      "email": "pooya@pi0.ir"
+    }
+  ],
+  "dependencies": {
+    "@nuxtjs/axios": "^4.0.1",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "cookie": "^0.3.1",
+    "js-cookie": "^2.1.4"
+  },
+  "deprecated": false,
+  "description": "Authentication module for Nuxt.js",
+  "devDependencies": {
+    "nuxt-module-builder": "latest"
+  },
+  "eslintIgnore": [
+    "*.template.*"
+  ],
+  "files": [
+    "lib",
+    "src",
+    "dist",
+    "templates"
+  ],
+  "homepage": "https://github.com/nuxt-community/auth-module#readme",
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "lib",
+      "src"
+    ]
+  },
+  "license": "MIT",
+  "main": "dist/index.js",
+  "name": "@nuxtjs/auth",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nuxt-community/auth-module.git"
+  },
+  "scripts": {
+    "build": "nuxt-module",
+    "lint": "eslint lib src test",
+    "lint-fix": "eslint --fix lib src test",
+    "prepare": "npm run build",
+    "release": "standard-version && git push --follow-tags && npm publish",
+    "test": "NODE_ENV=test npm run build && npm run lint && jest",
+    "watch": "nuxt-module --watch"
+  },
+  "version": "2.0.8"
+}
