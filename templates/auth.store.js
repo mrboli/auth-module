@@ -1,6 +1,8 @@
 import Cookie from 'cookie'
 import Cookies from 'js-cookie'
 
+const TOKEN_KEY = 'access_token'
+
 export default {
   namespaced: true,
 
@@ -45,9 +47,9 @@ export default {
       if (process.browser) {
         // ...Browser
         if (token) {
-          Cookies.set('token', token)
+          Cookies.set(TOKEN_KEY, token)
         } else {
-          Cookies.remove('token')
+          Cookies.remove(TOKEN_KEY)
         }
       } else {
         // ...Server
@@ -67,7 +69,7 @@ export default {
       if (!token) {
         const cookieStr = process.browser ? document.cookie : this.$ctx.req.headers.cookie
         const cookies = Cookie.parse(cookieStr || '') || {}
-        token = cookies.access_token
+        token = cookies[TOKEN_KEY]
       }
 
       if (token) {
@@ -80,7 +82,7 @@ export default {
       await dispatch('updateToken', null)
     },
 
-    async fetch ({ state, commit, dispatch }, { endpoint = 'auth/user', user } = {}) {
+    async fetch ({ state, commit, dispatch, rootState }, { endpoint, user } = {}) {
       // Fetch and update latest token
       await dispatch('fetchToken')
 
@@ -92,8 +94,11 @@ export default {
       if (user) {
         commit('SET_USER', user)
       } else {
-        // Try to get user profile
+        // Get the user from the environment endpoint if none is specified before default to auth-module path
+        endpoint = endpoint || rootState.authEndpoints.userURL || 'auth/user'
+
         try {
+          // Try to get user profile
           const userData = await this.$axios.$get(endpoint)
           commit('SET_USER', userData.user)
         } catch (e) {
